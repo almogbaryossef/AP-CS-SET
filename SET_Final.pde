@@ -143,7 +143,8 @@
               }
           } 
       }
-      void drawCard(int cardCol, int cardRow, int xpos, int ypos) {
+      
+      	  void drawCard(int cardCol, int cardRow, int xpos, int ypos) {
                image(cimg, xpos, ypos, CARD_WIDTH+CARD_X_SPACER, CARD_HEIGHT+CARD_Y_SPACER,
                         LEFT_OFFSET + cardCol*CARD_WIDTH, TOP_OFFSET + cardRow*CARD_HEIGHT, 
                         (cardCol+1)*CARD_WIDTH+CARD_X_SPACER,
@@ -168,7 +169,7 @@ drawCard(col, row, col*(CARD_WIDTH+CARD_X_SPACER),                      row*(CAR
             }
           }
  
-  void drawButtons() {
+      void drawButtons() {
             // Start, Stop, Clear rectangles in gray
             fill(#DDDDDD);
            for (int i = 0; i < NUM_BUTTONS; i++) {
