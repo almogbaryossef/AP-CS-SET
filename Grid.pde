@@ -12,15 +12,13 @@ public class Grid {
     cardsInPlay = 0;
   }
 
-
   // GRID MUTATION PROCEDURES
-  
+
   // 1. Highlight (or remove highlight) selected card
   // 2. Add (or remove) the location of the card in selectedLocs
   // 3. Add the card to (or remove from) the list of selectedCards
   public void updateSelected(int col, int row) {
     Card card = board[col][row];
-
     if (selectedCards.contains(card)) {
       int index = selectedCards.indexOf(card);
       selectedLocs.remove(index);
@@ -30,7 +28,6 @@ public class Grid {
       selectedLocs.add(new Location(col, row));
       selectedCards.add(card);
     }
-
     //System.out.println("Cards = " + selectedCards + ", Locations = " + selectedLocs);
   }
 
@@ -40,42 +37,29 @@ public class Grid {
   //    * The number of cards in play is adjusted as needed
   //    * The board is mutated to reflect removal of the set
   public void removeSet() {
-    // Because it seems to make for a better UX, cards should not change locations unless
-    // the number of columns has decreased.  If that happens, cards from the rightmost
-    // column should be moved to locations where cards that formed the selected set
-    // Put the locations of the selected cells in order.  Cards from the rightmost column
-    // that are part of the set should be removed instead of being migrated.
    if(cardsInPlay > 12 || deck.size() == 0) { 
-    selectedLocs.sort(null);  // Don't delete this line as it orders the selected locations
-                              // You may wish to look up how the Location class decides
-                              // how to compare two different locations.  Also look up the
-                              // documentation on ArrayList to see how sort(null) works
-
-   ArrayList<Card> cardS = new ArrayList();
-     int c = col(cardsInPlay) - 1;
-     int r = row(cardsInPlay);
-     Location loc1 = new Location(c, r);
-     Location loc2 = new Location(c, r + 1);
-     Location loc3 = new Location(c, r + 2);
-     boolean b1 = true;
-     boolean b2 = true;
-     boolean b3 = true;
-    // System.out.println("" + c + "" + r + "");
-     Card card1 = board[c][r];
-     Card card2 = board[c][r + 1];
-     Card card3 = board[c][r + 2];
-     //System.out.println(card1);
-     //System.out.println(card2);
-     //System.out.println(card3);
-   for(int i = 0; i < selectedLocs.size(); i++) {
-     if(selectedLocs.get(i).compareTo(loc1) == 0) {
-       b1 = false;
-     }
-     else if(selectedLocs.get(i).compareTo(loc2) == 0) {
-       b2 = false;
-     }
-     else if(selectedLocs.get(i).compareTo(loc3) == 0) {
-       b3 = false;
+       selectedLocs.sort(null);  
+      ArrayList<Card> cardS = new ArrayList();
+        int c = col(cardsInPlay) - 1;
+        int r = row(cardsInPlay);
+        Location loc1 = new Location(c, r);
+        Location loc2 = new Location(c, r + 1);
+        Location loc3 = new Location(c, r + 2);
+        boolean b1 = true;
+        boolean b2 = true;
+        boolean b3 = true;
+        Card card1 = board[c][r];
+        Card card2 = board[c][r + 1];
+        Card card3 = board[c][r + 2];
+       for(int i = 0; i < selectedLocs.size(); i++) {
+           if(selectedLocs.get(i).compareTo(loc1) == 0) {
+           b1 = false;
+           }
+          else if(selectedLocs.get(i).compareTo(loc2) == 0) {
+          b2 = false;
+         }
+        else if(selectedLocs.get(i).compareTo(loc3) == 0) {
+        b3 = false;
      }
    }
    if(b1) {
@@ -87,20 +71,11 @@ public class Grid {
    if(b3) {
      cardS.add(card3);
    }
-   //if(cardS.size() > 0) {
-   //  System.out.println("t");
-   //  System.out.println(cardS.get(0));
-   //}
-   //else {
-   //  System.out.println("f");
-   //}
     for(int j = 0; j < selectedLocs.size(); j++) {
       int col = selectedLocs.get(j).getCol();
      int row = selectedLocs.get(j).getRow();
-      if(selectedLocs.get(j).compareTo(loc1) < 0) {
-       // System.out.println(board[col][row]);
-        board[col][row] = cardS.get(j);
-       // System.out.println(board[col][row]);
+      if(selectedLocs.get(j).compareTo(loc1) < 0) {       
+          board[col][row] = cardS.get(j);
       }
     }
     cardsInPlay -= 3;
@@ -111,11 +86,9 @@ public class Grid {
       int col = selectedLocs.get(i).getCol();
       int row = selectedLocs.get(i).getRow();
       board[col][row] = deck.deal();
-      
      }
    }
   }
-  
   // Precondition: Three cards have been selected by the player
   // Postcondition: Game state, score, game message mutated, selected cards list cleared
   public void processTriple() {
@@ -139,9 +112,7 @@ public class Grid {
     clearSelected();
   }
   
-  
   // DISPLAY CODE
-  
   public void display() {
     int cols = cardsInPlay / 3;
     for (int col = 0; col < cols; col++) {
@@ -169,9 +140,7 @@ public class Grid {
     }
     for (Location loc : selectedLocs) {
       drawHighlight(loc, highlight);
-    }
-  }
-  
+    }  }
   public void drawHighlight(Location loc, color highlightColor) {
     stroke(highlightColor);
     strokeWeight(5);
@@ -185,14 +154,12 @@ public class Grid {
     stroke(#000000);
     strokeWeight(1);
   }
-
   
   // DEALING CARDS
-
   // Preconditions: cardsInPlay contains the current number of cards on the board
-  //                the array board contains the cards that are on the board
+  // the array board contains the cards that are on the board
   // Postconditions: board has been updated to include the card
-  //                the number of cardsInPlay has been increased by one
+  // the number of cardsInPlay has been increased by one
   public void addCardToBoard(Card card) {
           int row = row(cardsInPlay);
           int col = col(cardsInPlay);
@@ -200,7 +167,7 @@ public class Grid {
           cardsInPlay++;
   }
     
-  public void addColumn() {
+public void addColumn() {
     if(deck.size() == 0) {
             message = 5;
           }
@@ -220,7 +187,6 @@ public class Grid {
             return;
   }
 
-  
   // GAME PROCEDURES
   
   public boolean isGameOver() {
@@ -230,7 +196,6 @@ public class Grid {
   public boolean tripleSelected() {
     return (selectedLocs.size() == 3);
   }
-   
   // Preconditions: --
   // Postconditions: The selected locations and cards ArrayLists are empty
   public void clearSelected() {
@@ -259,7 +224,7 @@ public class Grid {
     return new ArrayList<Location>();
   }
 
-  
+
   // UTILITY FUNCTIONS FOR GRID CLASS
   
   public int col(int n) {
