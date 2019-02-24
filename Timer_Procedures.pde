@@ -34,12 +34,9 @@ void showTimer() {
 }
 
 public int timerScore() {
-  // Returns the number of points scored based on the timer, which is
-  // the GREATER of:
-  //    300 minus the number of seconds taken when the game ends
-  //      0
-  //
+  // Returns the number of points scored based on the timer, which is the GREATER of: 
+  // 300 minus the number of seconds taken when the game ends  0
   // If it took 277 seconds to finish the game, this should return 23 (300-277=23)
   // If it took 435 seconds to finish the game, this should return 0 (435 > 300)
   return max(300 - timeElapsed / 1000, 0);
-  }
+}
